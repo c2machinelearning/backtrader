@@ -117,10 +117,7 @@ class GenericCSVData(feed.CSVDataBase):
 
         if self.p.timeframe >= TimeFrame.Days:
             # check if the expected end of session is larger than parsed
-            if self._tzinput:
-                dtin = self._tzinput.localize(dt)  # pytz compatible-ized
-            else:
-                dtin = dt
+            dtin = dt
 
             dtnum = date2num(dtin)  # utc'ize
 
@@ -131,7 +128,7 @@ class GenericCSVData(feed.CSVDataBase):
                 self.lines.datetime[0] = dteosnum
             else:
                 # Avoid reconversion if already converted dtin == dt
-                self.l.datetime[0] = date2num(dt) if self._tzinput else dtnum
+                self.l.datetime[0] = dtnum
         else:
             self.lines.datetime[0] = date2num(dt)
 
